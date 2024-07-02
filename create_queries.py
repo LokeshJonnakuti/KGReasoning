@@ -9,6 +9,7 @@ import time
 import pdb
 import logging
 import os
+import fickling
 
 def set_logger(save_path, query_name, print_on_screen=False):
     '''
@@ -249,8 +250,8 @@ def generate_queries(dataset, query_structures, gen_num, max_ans_num, gen_train,
         test_ent_in, test_ent_out = construct_graph(base_path, indexified_files[:3])
         test_only_ent_in, test_only_ent_out = construct_graph(base_path, indexified_files[2:3])
 
-    ent2id = pickle.load(open(os.path.join(base_path, "ent2ind.pkl"), 'rb'))
-    rel2id = pickle.load(open(os.path.join(base_path, "rel2ind.pkl"), 'rb'))
+    ent2id = fickling.load(open(os.path.join(base_path, "ent2ind.pkl"), 'rb'))
+    rel2id = fickling.load(open(os.path.join(base_path, "rel2ind.pkl"), 'rb'))
 
     train_queries = defaultdict(set)
     train_tp_answers = defaultdict(set)
