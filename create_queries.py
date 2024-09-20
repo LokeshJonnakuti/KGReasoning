@@ -3,12 +3,12 @@ import os.path as osp
 import numpy as np
 import click
 from collections import defaultdict
-import random
 from copy import deepcopy
 import time
 import pdb
 import logging
 import os
+import secrets
 
 def set_logger(save_path, query_name, print_on_screen=False):
     '''
@@ -33,7 +33,7 @@ def set_logger(save_path, query_name, print_on_screen=False):
 
 def set_global_seed(seed):
     np.random.seed(seed)
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
 
 def index_dataset(dataset_name, force=False):
     print('Indexing dataset {0}'.format(dataset_name))
@@ -187,7 +187,7 @@ def ground_queries(dataset, query_structure, ent_in, ent_out, small_ent_in, smal
             num_broken, num_no_extra_answer, num_no_extra_negative, num_empty), end='\r')
         num_try += 1
         empty_query_structure = deepcopy(query_structure)
-        answer = random.sample(ent_in.keys(), 1)[0]
+        answer = secrets.SystemRandom().sample(ent_in.keys(), 1)[0]
         broken_flag = fill_query(empty_query_structure, ent_in, ent_out, answer, ent2id, rel2id)
         if broken_flag:
             num_broken += 1
@@ -315,7 +315,7 @@ def fill_query(query_structure, ent_in, ent_out, answer, ent2id, rel2id):
                 continue
             found = False
             for j in range(40):
-                r_tmp = random.sample(ent_in[answer].keys(), 1)[0]
+                r_tmp = secrets.SystemRandom().sample(ent_in[answer].keys(), 1)[0]
                 if r_tmp // 2 != r // 2 or r_tmp == r:
                     r = r_tmp
                     found = True
@@ -323,7 +323,7 @@ def fill_query(query_structure, ent_in, ent_out, answer, ent2id, rel2id):
             if not found:
                 return True
             query_structure[-1][i] = r
-            answer = random.sample(ent_in[answer][r], 1)[0]
+            answer = secrets.SystemRandom().sample(ent_in[answer][r], 1)[0]
         if query_structure[0] == 'e':
             query_structure[0] = answer
         else:

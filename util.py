@@ -1,7 +1,7 @@
 import numpy as np
-import random
 import torch
 import time
+import secrets
 
 def list2tuple(l):
     return tuple(list2tuple(x) if type(x)==list else x for x in l)
@@ -18,7 +18,7 @@ def set_global_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     np.random.seed(seed)
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     torch.backends.cudnn.deterministic=True
 
 def eval_tuple(arg_return):
