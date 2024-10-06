@@ -17,10 +17,10 @@ from models import KGReasoning
 from dataloader import TestDataset, TrainDataset, SingledirectionalOneShotIterator
 from tensorboardX import SummaryWriter
 import time
-import pickle
 from collections import defaultdict
 from tqdm import tqdm
 from util import flatten_query, list2tuple, parse_time, set_global_seed, eval_tuple
+import fickling
 
 query_name_dict = {('e',('r',)): '1p', 
                     ('e', ('r', 'r')): '2p',
@@ -167,14 +167,14 @@ def load_data(args, tasks):
     Load queries and remove queries not in tasks
     '''
     logging.info("loading data")
-    train_queries = pickle.load(open(os.path.join(args.data_path, "train-queries.pkl"), 'rb'))
-    train_answers = pickle.load(open(os.path.join(args.data_path, "train-answers.pkl"), 'rb'))
-    valid_queries = pickle.load(open(os.path.join(args.data_path, "valid-queries.pkl"), 'rb'))
-    valid_hard_answers = pickle.load(open(os.path.join(args.data_path, "valid-hard-answers.pkl"), 'rb'))
-    valid_easy_answers = pickle.load(open(os.path.join(args.data_path, "valid-easy-answers.pkl"), 'rb'))
-    test_queries = pickle.load(open(os.path.join(args.data_path, "test-queries.pkl"), 'rb'))
-    test_hard_answers = pickle.load(open(os.path.join(args.data_path, "test-hard-answers.pkl"), 'rb'))
-    test_easy_answers = pickle.load(open(os.path.join(args.data_path, "test-easy-answers.pkl"), 'rb'))
+    train_queries = fickling.load(open(os.path.join(args.data_path, "train-queries.pkl"), 'rb'))
+    train_answers = fickling.load(open(os.path.join(args.data_path, "train-answers.pkl"), 'rb'))
+    valid_queries = fickling.load(open(os.path.join(args.data_path, "valid-queries.pkl"), 'rb'))
+    valid_hard_answers = fickling.load(open(os.path.join(args.data_path, "valid-hard-answers.pkl"), 'rb'))
+    valid_easy_answers = fickling.load(open(os.path.join(args.data_path, "valid-easy-answers.pkl"), 'rb'))
+    test_queries = fickling.load(open(os.path.join(args.data_path, "test-queries.pkl"), 'rb'))
+    test_hard_answers = fickling.load(open(os.path.join(args.data_path, "test-hard-answers.pkl"), 'rb'))
+    test_easy_answers = fickling.load(open(os.path.join(args.data_path, "test-easy-answers.pkl"), 'rb'))
     
     # remove tasks not in args.tasks
     for name in all_tasks:
